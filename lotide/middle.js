@@ -35,7 +35,7 @@ const eqArrays = function(arr1 , arr2){
   
   // TEST CODE
   // ...
-  console.log(middle([1,2,3,4,5,6]));
+ // console.log(middle([1,2,3,4,5,6]));
   asserArraysEqual([3], middle([1,2,3,4,5]));
   asserArraysEqual([], middle([1,2]));
   asserArraysEqual(['world'], middle(['hello', 'world', 'carmen']));
