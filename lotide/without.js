@@ -17,20 +17,28 @@ const assertArraysEqual = function (arr1, arr2) {
 
 const without = function(source, itemToRemove) {
   let result = [];
-  result = source.filter((elementSource) => {
-    for (var i = 0; i < itemToRemove.length ; i++){
-      if (elementSource === itemToRemove[i]){
-        return false;
-      }
-    }
-    return true;
-  });
-  //   itemToRemove.forEach(element => {
-  //     return elementSource === element ? false : true   
-  //   });
+  //this tedious function works
+//  result = source.filter((elementSource) => {
+  //   for (var i = 0; i < itemToRemove.length ; i++){
+  //     if (elementSource === itemToRemove[i]){
+  //       return false;
+  //     }
+  //   }
+  //   return true;
   // });
+  //the following function not working
+/*  result = source.filter((elementSource) => {
+    itemToRemove.forEach(element => {elementSource === element ? false : true   
+    });
+  });*/
+  result = source.arrDiff(itemToRemove);
   return result;
 }
+Array.prototype.arrDiff = function (itemToRemove){
+  return this.filter(function (v){
+    return itemToRemove.indexOf(v) === -1;
+  });
+};
 console.log(without([1, 2, 3], [1,2]));
 console.log(without(["hello", "world", "lighthouse"], ["lighthouse"]));
 let words = ["hello", "world", "lighthouse"];
