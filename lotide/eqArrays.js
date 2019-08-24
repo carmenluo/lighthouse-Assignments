@@ -7,18 +7,31 @@ const assertEqual = function(actual, expected, message) {
 };
 
 const eqArrays = function(arr1 , arr2){
-  for (var i = 0 ; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i] || arr1.length != arr2.length) {
+  let flattenArr1 = flattenArray(arr1).sort((a,b) => a - b );
+  let flattenArr2 = flattenArray(arr2).sort((a,b) => a - b );
+  for (var i = 0 ; i < flattenArr1.length; i++) {
+    if (flattenArr1[i] !== flattenArr2[i] || flattenArr1.length != flattenArr2.length) {
       return false;
     }
   }
   return true;
 }
-// eqArrays([1, 2, 3], [1, 2, 3]) // => true
-// eqArrays([1, 2, 3], [3, 2, 1]) // => false
+const flattenArray = function (arr) {
+  let result =[];
+  for (let item of arr) {
+    if (Array.isArray(item)){
+      flattenArray(item).forEach(element => result.push(element));
+    }
+    else {
+      result.push(item);
+    }
+  }
+  return result;
+}
+// eqArrays([1, 2, 3], [1, 2, 3]) // => trues
 
 // eqArrays(["1", "2", "3"], ["1", "2", "3"]) // => true
 // eqArrays(["1", "2", "3"], ["1", "2", 3]) // => false
-assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false); // => should PASS
+assertEqual(eqArrays([1, 2, 3], [3, [[2]], 1]), true); // => should PASS
 assertEqual(eqArrays([1, 2, 3], ['1','2','3']), false); 
 assertEqual(eqArrays([1, 2, 3], [1,2,3,4]), false); 
