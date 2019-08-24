@@ -14,6 +14,9 @@ const eqObjects = function (object1, object2) {
           return false;
         }
       }
+      else if (typeof object1[key] === 'object' && typeof object2[key] === 'object') {
+        return (eqObjects(object1[key], object2[key]));
+      }
       else {
         if (object1[key] !== object2[key]) {
           return false;
@@ -24,16 +27,19 @@ const eqObjects = function (object1, object2) {
   }
   return false;
 };
-const ab = { a: "1", b: "2" };
-const ba = { b: "2", a: "1" };
-console.log(eqObjects(ab, ba)); // => true
-const abb = { b: "24", a: "1" };
-console.log(eqObjects(ab, abb)); // => false
-const cd = { c: '1', d: ['2', 3] };
-const dc = {d:['2',3], c:'1'};
-console.log(eqObjects(cd, dc)); // => true
-const cd2 = { c: '1', d: ['2', 3, 4] };
-console.log(eqObjects(cd, cd2)); // => false
+// const ab = { a: "1", b: "2" };
+// const ba = { b: "2", a: "1" };
+// console.log(eqObjects(ab, ba)); // => true
+// const abb = { b: "24", a: "1" };
+// console.log(eqObjects(ab, abb)); // => false
+// const cd = { c: '1', d: ['2', 3] };
+// const dc = {d:['2',3], c:'1'};
+// console.log(eqObjects(cd, dc)); // => true
+// const cd2 = { c: '1', d: ['2', 3, 4] };
+// console.log(eqObjects(cd, cd2)); // => false
 
-const abc = { a: "1", b: "2", c: "3" };
-console.log(eqObjects(ab, abc)); // => false
+// const abc = { a: "1", b: "2", c: "3" };
+// console.log(eqObjects(ab, abc)); // => false
+console.log(eqObjects({ a: { z: 1 }, b: 2 }, {b: 2 , a: { z: 1 }}));
+console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 })) // => false
+console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }))
