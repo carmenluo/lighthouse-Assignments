@@ -1,11 +1,4 @@
-const assertEqual = function(actual, expected, message) {
-  if (actual === expected) { 
-    console.log(`✅✅✅ Assertion Passed`);
-  } else {
-    console.log(`🛑🛑🛑 Assertion Failed`);
-  }
-};
-
+const assertEqual = require('./assertEqual');
 const eqArrays = function(arr1 , arr2){
   let flattenArr1 = flattenArray(arr1).sort((a,b) => a - b );
   let flattenArr2 = flattenArray(arr2).sort((a,b) => a - b );
@@ -32,6 +25,4 @@ const flattenArray = function (arr) {
 
 // eqArrays(["1", "2", "3"], ["1", "2", "3"]) // => true
 // eqArrays(["1", "2", "3"], ["1", "2", 3]) // => false
-assertEqual(eqArrays([1, 2, 3], [3, [[2]], 1]), true); // => should PASS
-assertEqual(eqArrays([1, 2, 3], ['1','2','3']), false); 
-assertEqual(eqArrays([1, 2, 3], [1,2,3,4]), false); 
+module.exports = eqArrays;
